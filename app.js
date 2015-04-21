@@ -15,7 +15,13 @@ app.get('/search/:q', function (request, response) {
 });
 
 app.get('/tracks', function (request, response) {
-    response.json('OK');
+    http.GET('http://localhost:5984/tracks/_all_docs', function(resp) {
+        if(JSON.parse(resp.body).rows) {
+            response.json(JSON.parse(resp.body).rows).status(200).end();
+        } else {
+            response.json('Error when retrieving tracks').status(500).end();
+        }
+    });
 });
 
 app.get('/tracks/:id', function (request, response) {
