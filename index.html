@@ -1,195 +1,192 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>Lecteur de musique collaboratif</title>
-  <link rel="stylesheet" href="style/style.css" id="lc_stylesheet">
-  <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
-  <script type="text/javascript" src="script/jquery.js"></script>  
-  <script type="text/javascript" src="script/cookie/jquery.cookie.js"></script>
-  <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-  <script src="https://cdns-files.deezer.com/js/min/dz.js"></script>
+    <meta charset="utf-8">
+    <title>Lecteur de musique collaboratif</title>
+    <link rel="stylesheet" href="style/style.css" id="lc_stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="script/jquery.js"></script>
+    <script type="text/javascript" src="script/cookie/jquery.cookie.js"></script>
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="http://cdns-files.deezer.com/js/min/dz.js"></script>
 </head>
 <body>
 <div class="header">
-	<section class="header">
-		<h1 class="titre">Lecteur de Musique Collaboratif</h1>
-	</section>
+    <section class="header">
+        <h1 class="titre">Lecteur de Musique Collaboratif</h1>
+    </section>
 </div>
-	<section class="changer">
-		<p>Changer de style</p>
-	</section>
-	<section class="main wrapper">
-			<div class="player">
-				<img class="cover" src="images/test.jpg">
-				<p class="now">Now Playing: Daft Punk - Veridis Quo</p>
-				<audio id="audiotag1" src="../../Téléchargements/Music/audio/veridis_quo.mp3" preload="auto"></audio>
-				<img id="play" class="play" src="images/play.png">
-				<img id="pause" class="pause" src="images/pause.png">
-				<p class ="add butAdd"><a href="#">Ajouter une chanson</a></p>
-				<div class="add search">
-				<input type="search" class="search" placeholder="Entrez le titre de la chanson..." name="the_search">
-				<button type="button" class="search">Rechercher</button>
-				</div>
-			</div>
-			<div class="playlist">
-				<table class="playlist">
-				   <tr>
-				       <th>Titre</th>
-				       <th>Artiste</th>
-				       <th>Album</th>
-				       <th class="small">Vote</th>
-				   </tr>
+<section class="changer">
+    <p>Changer de style</p>
+</section>
+<section class="main wrapper">
+    <div class="player">
+        <img class="cover" src="images/test.jpg">
+        <p class="now">Now Playing: Daft Punk - Veridis Quo</p>
+        <img id="play" class="play" src="images/play.png">
+        <img id="pause" class="pause" src="images/pause.png">
+        <p class ="add butAdd"><a href="#">Ajouter une chanson</a></p>
+        <div class="add search">
+            <input type="search" class="search" placeholder="Entrez le titre de la chanson..." name="the_search">
+            <button type="button" class="search">Rechercher</button>
+        </div>
+    </div>
+    <div class="playlist">
+        <table class="playlist">
+            <tr>
+                <th>Titre</th>
+                <th>Artiste</th>
+                <th>Album</th>
+                <th class="small">Vote</th>
+            </tr>
 
-				   <tr>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td class="small">2</td>
-				   </tr>
-				   <tr>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td class="small">2</td>
-				   </tr>
-				   <tr>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td class="small">2</td>
-				   </tr>
-				   <tr>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td class="small">2</td>
-				   </tr>
-				   <tr>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td class="small">2</td>
-				   </tr>
-				   <tr>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td class="small">2</td>
-				   </tr>
-				   <tr>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td>Lorem ipsum</td>
-				       <td class="small">2</td>
-				   </tr>
-				</table>
-			</div>	
-			<div id="dz-root"></div>
+            <tr>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td class="small">2</td>
+            </tr>
+            <tr>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td class="small">2</td>
+            </tr>
+            <tr>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td class="small">2</td>
+            </tr>
+            <tr>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td class="small">2</td>
+            </tr>
+            <tr>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td class="small">2</td>
+            </tr>
+            <tr>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td class="small">2</td>
+            </tr>
+            <tr>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td>Lorem ipsum</td>
+                <td class="small">2</td>
+            </tr>
+        </table>
+    </div>
+    <div id="dz-root"></div>
 
-	</section>
+</section>
 
-	<div ng-app="myApp" ng-controller="customersCtrl"> 
+<div ng-app="myApp" ng-controller="customersCtrl">
 
-		<ul>
-		  <li ng-repeat="x in names">
-		    {{ x.Name + ', ' + x.Country }}
-		  </li>
-		</ul>
+    <ul>
+        <li ng-repeat="x in names">
+            {{ x.Name + ', ' + x.Country }}
+        </li>
+    </ul>
 
-		</div>
+</div>
 
-		<script>
-		var app = angular.module('myApp', []);
-		app.controller('customersCtrl', function($scope, $http) {
-		  $http.get("http://localhost:3000/tracks")
-		  .success(function (response) {$scope.names = response.records;});
-		});
-		</script>
-	<script>
-	/* Initialisation Deezer */
-	$(document).ready(function() {
-				DZ.init({
-				appId  : '155771',
-				channelUrl : 'localhost:8080/music/channel.html',
-				player : {
-					onload : function(){
-					}
-				}
-			});
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+        $http.get("http://localhost:3000/tracks")
+                .success(function (response) {$scope.names = response.records;});
+    });
+</script>
+<script>
+    /* Initialisation Deezer */
+    $(document).ready(function() {
+        DZ.init({
+            appId  : '155951',
+            channelUrl : 'http://localhost:3000/channel.html',
+            player : {
+                onload : function(){
+                }
+            }
+        });
 
-
-		$( ".pause" ).hide();
+        $( ".pause" ).hide();
         $( ".play" ).show();
 
-    /* Radio play */
-		$('.play').click(function() {
-			/*DZ.player.playTracks([3135563]);
-			$( ".play" ).hide();
-         	$( ".pause" ).show();*/
-         	DZ.login(function(response) {
-			if (response.authResponse) {
-				console.log('Welcome!  Fetching your information.... ');
-				DZ.api('/user/me', function(response) {
-					console.log('Good to see you, ' + response.name + '.');
-				});
-			} else {
-				console.log('User cancelled login or did not fully authorize.');
-			}
-		}, {perms: 'basic_access,email'});
+        /* Radio play */
+        $('.play').click(function() {
+            /*DZ.player.playTracks([3135563]);
+             $( ".play" ).hide();
+             $( ".pause" ).show();*/
+            DZ.login(function(response) {
+                if (response.authResponse) {
+                    console.log('Welcome!  Fetching your information.... ');
+                    DZ.api('/user/me', function(response) {
+                        console.log('Good to see you, ' + response.name + '.');
+                    });
+                } else {
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            }, {perms: 'basic_access,email'});
 
-         $( ".play" ).hide();
-         $( ".pause" ).show();
-		})
+            $( ".play" ).hide();
+            $( ".pause" ).show();
+        });
 
-	/* Radio pause */
+        /* Radio pause */
 
-		$('.pause').click(function() {
-			DZ.player.setVolume(0);
-			$( ".pause" ).hide();
-         	$( ".play" ).show();
-		})
+        $('.pause').click(function() {
+            DZ.player.setVolume(0);
+            $( ".pause" ).hide();
+            $( ".play" ).show();
+        });
 
-	/* Music Add */
+        /* Music Add */
 
-		$('.butAdd').click(function(){
-        	 $('.butAdd').hide();
-        	 $('.search').show();
-        })
+        $('.butAdd').click(function(){
+            $('.butAdd').hide();
+            $('.search').show();
+        });
 
-    /* Switch theme */    
+        /* Switch theme */
 
-		function appendStyleSheet() {
-			$('head').append('<link rel="stylesheet" href="style/style2.css" id="hc_stylesheet">'); 
-		}
+        function appendStyleSheet() {
+            $('head').append('<link rel="stylesheet" href="style/style2.css" id="hc_stylesheet">');
+        }
 
-		function appendStyleSheet2() {
-			$('head').append('<link rel="stylesheet" href="style/style.css" id="lc_stylesheet">'); 
-		}
-		if ($.cookie('high_contrast') == 'true') {
-		  appendStyleSheet();      
-		}
+        function appendStyleSheet2() {
+            $('head').append('<link rel="stylesheet" href="style/style.css" id="lc_stylesheet">');
+        }
+        if ($.cookie('high_contrast') == 'true') {
+            appendStyleSheet();
+        }
 
-		$(".changer").click(function () {
-			console.log('Test');
-		    
-			// append the style sheet on load if the cookie is set to true
-			if ($.cookie('high_contrast') != 'true') {
-			  appendStyleSheet();      
-			  $.cookie('high_contrast', 'true'); // set the cookie to true
-			  $("#lc_stylesheet").remove();
-			} 
-		    else {
-		        // remove the high-contrast style
-		        appendStyleSheet2();
-		        $("#hc_stylesheet").remove();
-		        $.cookie('high_contrast', 'false');
-		    }
-		});
+        $(".changer").click(function () {
+            console.log('Test');
 
-	});
+            // append the style sheet on load if the cookie is set to true
+            if ($.cookie('high_contrast') != 'true') {
+                appendStyleSheet();
+                $.cookie('high_contrast', 'true'); // set the cookie to true
+                $("#lc_stylesheet").remove();
+            }
+            else {
+                // remove the high-contrast style
+                appendStyleSheet2();
+                $("#hc_stylesheet").remove();
+                $.cookie('high_contrast', 'false');
+            }
+        });
 
-	</script>
+    });
+</script>
 </body>
 </html>

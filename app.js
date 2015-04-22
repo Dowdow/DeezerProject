@@ -1,5 +1,6 @@
 var express = require('express');
-var HttpClient = require('./HttpClient')
+var HttpClient = require('./HttpClient');
+var path = require('path');
 
 var app = express();
 var http = new HttpClient();
@@ -11,8 +12,12 @@ var time = 0;
 var duration = 0;
 var vote = 0;
 
+app.use('/style', express.static(__dirname + '/style'));
+app.use('/script', express.static(__dirname + '/script'));
+app.use('/images', express.static(__dirname + '/images'));
+
 app.get('/', function (request, response) {
-    response.json('OK');
+    response.sendFile(path.join(__dirname+'/index.html'));
 });
 
 app.get('/search/:q', function (request, response) {
