@@ -1,0 +1,169 @@
+html { 
+  margin:0;
+  padding:0;
+  background: url("../images/bg2.jpg") no-repeat center fixed; 
+  -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+  background-size: cover; /* version standardisée */
+}
+
+
+body{
+	margin: 0;
+	padding: 0;
+	color: white;
+}
+
+section.header h1{
+	margin: 0;
+	font-family: 'Lato', sans-serif;
+	font-size: 24pt;
+	font-weight: 300;
+	background-color: rgb(0, 0, 0);
+    /* RGBa with 0.6 opacity */
+    background-color: rgba(102, 59, 88, 0.3);
+    -webkit-border-bottom-right-radius: 50%;
+	-webkit-border-bottom-left-radius: 50%;
+	-moz-border-radius-bottomright: 50%;
+	-moz-border-radius-bottomleft: 50%;
+	border-bottom-right-radius: 50%;
+	border-bottom-left-radius: 50%;
+	padding:20px 100px 50px 100px;
+	color: white;
+	text-shadow: #FFFFFF 0px 0px 10px; /* for browsers without spread support */
+  	text-shadow: #FFFFFF 0px 0px 10px 10px; /* for browsers with spread support */
+
+}
+
+div.header{
+	text-align: center;
+	margin-bottom: 150px;
+}
+
+section.header{
+	display: inline-block;
+}
+
+section.changer{
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: #ED706F;
+	font-family: 'Lato', sans-serif;
+	font-size: 14pt;
+	color: white;
+	padding: 0px 10px;
+	border-bottom-left-radius: 20%;
+	cursor: pointer;
+}
+
+.main{
+	text-align: center;
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+	font-size: 13pt;
+}
+
+.wrapper{
+	width: 900px;
+	margin: 0px auto;
+}
+
+.player{
+	height: 270px;
+	background-color: rgba(237, 112, 111, 1);
+	position: relative;
+}
+
+
+.player .add{
+	background-color: white;
+	padding: 10px 0px;
+	color: black;
+	position: absolute;
+	bottom: 0;
+	margin: 0px;
+	left: 270px;
+	width: calc(100% - 270px);
+	overflow: hidden;
+}
+
+.player .now{
+	padding-top: 20px;
+	margin-top: 20px;
+	margin-bottom: 38px;
+	font-size: 16pt;
+}
+
+.playlist table{
+	width:100%;
+	border: 1px solid white;
+	border-collapse: collapse;
+	background-color: rgba(102, 59, 88, 0.3);
+}
+
+.player .butAdd{
+	cursor: pointer;
+}
+
+.player .add a{
+	color: black;
+	text-decoration: none;
+}
+
+th, td {
+  border-right: 1px solid white;
+  padding: 10px 0px;
+}
+
+.playlist table tr{
+	margin-bottom: 10px;
+}
+
+.playlist table td, .playlist table th{
+	width: 30%;
+}
+
+.playlist table .small{
+	width: 10%;
+	border-right: 0px solid white;
+}
+
+img.cover{
+	height: 270px;
+	width: 270px;
+	float: left;
+	display: inline-block;
+}
+
+img#play, img#pause{
+	cursor: pointer;
+}
+
+img#play{
+	display: none;
+}
+
+.player .search{
+	display: none;
+	
+}
+
+.player input.search{
+	padding-left: 10px;
+	width: calc(100% - 105px);
+	height: 40px;
+	border: 0px solid white;
+}
+
+.player button.search{
+	height: 42px;
+	width: 90px;
+	border: 0px solid white;
+	background-color: rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+}
+
+.player div.add{
+	padding: 0px;
+	height: 42px;
+}

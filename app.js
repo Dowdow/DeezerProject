@@ -4,6 +4,8 @@ var HttpClient = require('./HttpClient')
 var app = express();
 var http = new HttpClient();
 
+var COUCHDB_SERVER = 'http://localhost:5984';
+
 var current = '';
 var time = 0;
 var duration = 0;
@@ -20,7 +22,7 @@ app.get('/search/:q', function (request, response) {
 });
 
 app.get('/tracks', function (request, response) {
-    http.GET('http://localhost:5984/tracks/_all_docs', function(res) {
+    http.GET(COUCHDB_SERVER + '/tracks/_all_docs', function(res) {
         if(JSON.parse(res.body).rows) {
             response.json(JSON.parse(res.body).rows).status(200).end();
         } else {
@@ -30,7 +32,7 @@ app.get('/tracks', function (request, response) {
 });
 
 app.get('/tracks/:id', function (request, response) {
-    http.GET('http://localhost:5984/tracks/' + request.params.id, function(res) {
+    http.GET(COUCHDB_SERVER + '/tracks/' + request.params.id, function(res) {
         if(JSON.parse(res.body).id) {
             response.json(JSON.parse(res.body)).status(200).end();
         } else {
@@ -45,7 +47,7 @@ app.put('/tracks/:id', function (request, response) {
             response.json('Track ' + request.params.id + ' does not exist').status(404).end();
             return;
         }
-        http.PUT('http://localhost:5984/tracks/' + request.params.id, res.body, function(res) {
+        http.PUT(COUCHDB_SERVER + '/tracks/' + request.params.id, res.body, function(res) {
             if(JSON.parse(res.body).ok) {
                 response.json('OK').status(201).end();
             } else {
@@ -56,12 +58,12 @@ app.put('/tracks/:id', function (request, response) {
 });
 
 app.delete('/tracks/:id', function (request, response) {
-    http.GET('http://localhost:5984/tracks/3135556', function(res) {
+    http.GET(COUCHDB_SERVER + '/tracks/3135556', function(res) {
         if(!JSON.parse(res.body).id) {
             response.json('Error when retrieving tracks to delete').status(500).end();
             return;
         }
-        http.DELETE('http://localhost:5984/tracks/' + request.params.id + '?rev=' + JSON.parse(res.body)._rev, function(res) {
+        http.DELETE(COUCHDB_SERVER + '/tracks/' + request.params.id + '?rev=' + JSON.parse(res.body)._rev, function(res) {
             if(JSON.parse(res.body).ok) {
                 response.json('OK').status(200).end();
             } else {
@@ -73,7 +75,7 @@ app.delete('/tracks/:id', function (request, response) {
 
 app.get('/current', function (request, response) {
     console.log(current);
-    http.GET('http://localhost:5984/tracks/' + current, function(res) {
+    http.GET(COUCHDB_SERVER + '/tracks/' + current, function(res) {
         if(JSON.parse(res.body).id) {
             var track = JSON.parse(res.body);
             track.currentduration = (time / track.duration) * 100 ;
@@ -86,7 +88,7 @@ app.get('/current', function (request, response) {
 
 
 app.get('/votes', function (request, response) {
-    http.GET('http://localhost:5984/votes/' + vote, function(res) {
+    http.GET(COUCHDB_SERVER + '/votes/' + vote, function(res) {
         if(JSON.parse(res.body).votes) {
             response.json(JSON.parse(res.body).votes).status(200).end();
         } else {
@@ -96,15 +98,16 @@ app.get('/votes', function (request, response) {
 });
 
 app.put('/votes/:id', function (request, response) {
-    http.GET('http://localhost:5984/votes/' + vote, function(res) {
+    http.GET(COUCHDB_SERVER + '/votes/' + vote, function(res) {
         if(JSON.parse(res.body).votes) {
             var votes = JSON.parse(res.body);
             for(var v in votes.votes) {
                 if(votes.votes[v].id == request.params.id) {
                     votes.votes[v].vote++;
+                    break;
                 }
             }
-            http.PUT('http://localhost:5984/votes/' + vote, JSON.stringify(votes), function(res) {
+            http.PUT(COUCHDB_SERVER + '/votes/' + vote, JSON.stringify(votes), function(res) {
                 if(JSON.parse(res.body).ok) {
                     response.json('OK').status(201).end();
                 } else {
@@ -116,34 +119,34 @@ app.put('/votes/:id', function (request, response) {
 });
 
 function createVotes() {
-    http.GET('http://localhost:5984/tracks/_all_docs', function(res) {
+    http.GET(COUCHDB_SERVER + '/tracks/_all_docs', function(res) {
         if(JSON.parse(res.body).rows) {
             var tracks = JSON.parse(res.body).rows;
             var votes = { 'id': vote, 'votes': [] };
             for(var t in tracks) {
                 votes.votes.push({ 'id': tracks[t].id, 'vote': 0 });
             }
-            http.PUT('http://localhost:5984/votes/' + vote, JSON.stringify(votes), function(res) {});
+            http.PUT(COUCHDB_SERVER + '/votes/' + vote, JSON.stringify(votes), function(res) {});
         }
     });
 }
 
 function purgeVotes() {
-    http.GET('http://localhost:5984/votes/_all_docs', function(res) {
+    http.GET(COUCHDB_SERVER + '/votes/_all_docs', function(res) {
         if(JSON.parse(res.body).rows) {
             var votes = JSON.parse(res.body).rows;
             for (var v in votes) {
-                http.DELETE('http://localhost:5984/votes/' + votes[v].id + '?rev=' + votes[v].value.rev, function(res) {});
+                http.DELETE(COUCHDB_SERVER + '/votes/' + votes[v].id + '?rev=' + votes[v].value.rev, function(res) {});
             }
         }
     });
 }
 
 function initialiseTrack() {
-    http.GET('http://localhost:5984/tracks/_all_docs', function(res) {
+    http.GET(COUCHDB_SERVER + '/tracks/_all_docs', function(res) {
         if(JSON.parse(res.body).rows) {
             current = JSON.parse(res.body).rows[0].id;
-            http.GET('http://localhost:5984/tracks/' + current, function(res) {
+            http.GET(COUCHDB_SERVER + '/tracks/' + current, function(res) {
                 if(JSON.parse(res.body).id) {
                     duration = JSON.parse(res.body).duration;
                 }
@@ -153,7 +156,7 @@ function initialiseTrack() {
 }
 
 function change() {
-    http.GET('http://localhost:5984/votes/' + vote, function(res) {
+    http.GET(COUCHDB_SERVER + '/votes/' + vote, function(res) {
         if(JSON.parse(res.body).votes) {
             var votes = JSON.parse(res.body).votes;
             var id  = votes[0].id, nb = votes[0].vote;
@@ -164,7 +167,7 @@ function change() {
                 }
             }
             current = id;
-            http.GET('http://localhost:5984/tracks/' + current, function(res) {
+            http.GET(COUCHDB_SERVER + '/tracks/' + current, function(res) {
                 if(JSON.parse(res.body).id) {
                     duration = JSON.parse(res.body).duration;
                 }
