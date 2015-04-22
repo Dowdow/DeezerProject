@@ -6,6 +6,7 @@ var http = new HttpClient();
 
 var current = '';
 var time = 0;
+var duration = 0;
 var vote = 0;
 
 app.get('/', function (request, response) {
@@ -70,6 +71,20 @@ app.delete('/tracks/:id', function (request, response) {
     });
 });
 
+app.get('/current', function (request, response) {
+    console.log(current);
+    http.GET('http://localhost:5984/tracks/' + current, function(res) {
+        if(JSON.parse(res.body).id) {
+            var track = JSON.parse(res.body);
+            track.currentduration = (time / track.duration) * 100 ;
+            response.json(track).status(200).end();
+        } else {
+            response.json('Error when retrieving the track').status(500).end();
+        }
+    });
+});
+
+
 app.get('/votes', function (request, response) {
     http.GET('http://localhost:5984/votes/' + vote, function(res) {
         if(JSON.parse(res.body).votes) {
@@ -100,7 +115,7 @@ app.put('/votes/:id', function (request, response) {
     });
 });
 
-function createVote() {
+function createVotes() {
     http.GET('http://localhost:5984/tracks/_all_docs', function(res) {
         if(JSON.parse(res.body).rows) {
             var tracks = JSON.parse(res.body).rows;
@@ -124,21 +139,68 @@ function purgeVotes() {
     });
 }
 
+function initialiseTrack() {
+    http.GET('http://localhost:5984/tracks/_all_docs', function(res) {
+        if(JSON.parse(res.body).rows) {
+            current = JSON.parse(res.body).rows[0].id;
+            http.GET('http://localhost:5984/tracks/' + current, function(res) {
+                if(JSON.parse(res.body).id) {
+                    duration = JSON.parse(res.body).duration;
+                }
+            });
+        }
+    });
+}
+
+function change() {
+    http.GET('http://localhost:5984/votes/' + vote, function(res) {
+        if(JSON.parse(res.body).votes) {
+            var votes = JSON.parse(res.body).votes;
+            var id  = votes[0].id, nb = votes[0].vote;
+            for(var v in votes) {
+                if(votes[v].vote > nb) {
+                    id = votes[v].id;
+                    nb = votes[v].vote;
+                }
+            }
+            current = id;
+            http.GET('http://localhost:5984/tracks/' + current, function(res) {
+                if(JSON.parse(res.body).id) {
+                    duration = JSON.parse(res.body).duration;
+                }
+            });
+        }
+    });
+}
+
+function core() {
+    time = 0;
+    console.log(current);
+    var interval = setInterval(function() {
+        if(time == duration) {
+            console.log('Timer fini');
+            clearInterval(interval);
+        }
+        time++;
+        console.log(time);
+    }, 1000);
+    setTimeout(function() {
+        console.log('Musique finie');
+        change();
+        vote++;
+        createVotes();
+        setTimeout(core, 3000);
+    }, duration * 1000);
+}
+
 var server = app.listen(3000, function () {
     console.log('Listening at http://localhost:%s', server.address().port);
     console.log('Purging votes ...');
     purgeVotes();
     console.log('OK');
     console.log('Initializing votes ...');
-    createVote();
+    createVotes();
     console.log('OK');
-    // Lancer une musique au pif
-    /*for(var i = 0; i <  20; i++) {
-     time = 0;
-     setInterval(function() {
-     time++;
-     }, 1000);
-     vote++;
-     createVote();
-     }*/
+    initialiseTrack();
+    setTimeout(core, 3000);
 });
