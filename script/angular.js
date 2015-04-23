@@ -15,6 +15,11 @@ app.factory('factory', function($http, $q) {
                             tracks[track.id] = track;
                         });
                     });
+                    factory.getVotes().then(function(votes) {
+                        angular.forEach(votes, function(value, key) {
+                            tracks[value.id].vote = value.vote;
+                        });
+                    });
                     deferred.resolve(tracks);
                 })
                 .error(function (response){console.log("PAS OK")});
@@ -30,7 +35,13 @@ app.factory('factory', function($http, $q) {
             return deferred.promise;
         },
         getVotes: function() {
-
+            var deferred = $q.defer();
+            $http.get('http://localhost:3000/votes')
+                .success(function (response) {
+                    deferred.resolve(response);
+                })
+                .error(function (response){console.log("PAS OK")});
+            return deferred.promise;
         },
         getCurrent: function() {
             var deferred = $q.defer();
@@ -48,23 +59,11 @@ app.factory('factory', function($http, $q) {
 app.controller('tracksCtrl', function($scope, factory) {
     $scope.tracks = factory.getTracks().then(function(tracks) {
         $scope.tracks = tracks;
-        console.log(tracks);
     });
 });
 
 app.controller('currentCtrl', function($scope, $http) {
-    $scope.current = factory.getTracks().then(function(current) {
+    $scope.current = factory.getCurrent().then(function(current) {
         $scope.current = current;
     });
-});
-
-app.controller('voteCtrl', function($scope, $http) {
-    $http.get("http://localhost:3000/votes")
-        .success(function (response) {
-            $scope.votes = response;
-            //console.log(response)
-        })
-        .error(function (response){
-            console.log("PAS OK")
-        });
 });
