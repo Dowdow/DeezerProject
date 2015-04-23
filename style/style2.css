@@ -179,3 +179,12 @@ img#play{
 	padding: 0;
 	height: 42px;
 }
+
+.connection-btn{
+	background-color: white;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 25px;
+    padding: 10px 20px;
+}
