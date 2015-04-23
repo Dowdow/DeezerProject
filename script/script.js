@@ -54,12 +54,6 @@ $(document).ready(function() {
         $( ".play" ).show();
     });
 
-    /* Music Add */
-    $('.butAdd').click(function(){
-        $('.butAdd').hide();
-        $('.search').show();
-    });
-
     /* Switch theme */
     function appendStyleSheet() {
         $('head').append('<link rel="stylesheet" href="style/style2.css" id="hc_stylesheet">');
@@ -88,4 +82,36 @@ $(document).ready(function() {
             $.cookie('high_contrast', 'false');
         }
     });
+
+    /* Search Deezer */
+
+    $('.butAdd').click(function(){
+        $('.butAdd').hide();
+        $('.search').show();
+    });
+
+    $('.searchStart').click(function(){
+        $('table.playlist').hide();
+        $('.searchStart').hide();
+        $('table.searchResults').show();
+        $('.searchReturn').show();
+    });  
+
+    $('.searchReturn').click(function(){
+        $('table.searchResults').hide();
+        $('.searchReturn').hide();
+        $('table.playlist').show();
+        $('.searchStart').show();
+        $('.search').hide();
+        $('.butAdd').show();
+    });  
+
+    $('.addSong').click(function(){
+        $('table.searchResults').hide();
+        $('.searchReturn').hide();
+        $('table.playlist').show();
+        $('.searchStart').show();
+        $('.search').hide();
+        $('.butAdd').show();
+    });  
 });

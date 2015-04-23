@@ -30,7 +30,8 @@
         <p class ="add butAdd"><a href="#">Ajouter une chanson</a></p>
         <div class="add search">
             <input type="search" class="search" placeholder="Entrez le titre de la chanson..." name="the_search">
-            <button type="button" class="search">Rechercher</button>
+            <button type="button" class="searchStart search">Rechercher</button>
+            <button type="button" class="searchReturn search">Retour</button>
         </div>
     </div>
     <div class="playlist">
@@ -42,13 +43,33 @@
                 <th class="small">Vote</th>
             </tr>
 
-            <tr ng-repeat="track in tracks" id="{{ track.key }}">
+            <tr ng-repeat="track in tracks" id="{{ track.id }}">
                 <td>{{track.title}}</td>
                 <td>{{track.artist.name}}</td>
                 <td>{{track.album.title}}</td>
-                <td class="small"><span>{{track.vote}}</span></td>
+                <td class="small"><span>{{track.vote}}</span> <span class="addVote">+</span></td>
+            </tr>
+        </table>
+        <table class="searchResults">
+            <tr>
+                <th>Titre</th>
+                <th>Artiste</th>
+                <th>Album</th>
+                <th class="small">Ajouter</th>
+            </tr>
+            <tr>
+                <td>ligne</td>
+                <td>de</td>
+                <td>test</td>
+                <td class="small"><span class="addSong">Ajouter</span></td>
             </tr>
 
+            <tr ng-repeat="track in tracks" id="{{ track.id }}">
+                <td>{{track.title}}</td>
+                <td>{{track.artist.name}}</td>
+                <td>{{track.album.title}}</td>
+                <td class="small"><span class="addSong">Ajouter</span></td>
+            </tr>
         </table>
     </div>
     <div id="dz-root"></div>

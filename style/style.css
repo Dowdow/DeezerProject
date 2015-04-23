@@ -189,3 +189,24 @@ img#play{
     margin-top: 25px;
     padding: 10px 20px;
 }
+
+.addVote{
+	background-color: white;
+    color: #ed706f;
+    font-size: 16pt;
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.addSong{
+	background-color: white;
+    color: #ed706f;
+    font-size: 14pt;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.searchResults{
+	display: none;
+}
