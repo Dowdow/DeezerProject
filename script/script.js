@@ -2,31 +2,49 @@
 $(document).ready(function() {
     DZ.init({
         appId  : '155951',
-        channelUrl : 'http://localhost:3000/channel.html',
+        channelUrl : 'http://localhost:3000',
         player : {
             onload : function(){
             }
         }
     });
 
-    $( ".pause" ).hide();
-    $( ".play" ).show();
+    $('.pause').hide();
+    $('.play').hide();
+    $('.logout').hide();
+
+    /* Deezer login */
+    $('.connection-btn').click(function() {
+        DZ.login(function(response) {
+            if (response.authResponse) {
+                DZ.api('/user/me', function(response) {
+                    $('#username').html(response.name);
+                    $('.connection-btn').hide();
+                    $('.play').show();
+                    $('.logout').show();
+                });
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        }, {perms: 'basic_access,email'});
+    });
+
+    /* Deezer logout */
+    $('.logout').click(function() {
+        DZ.player.pause();
+        DZ.logout(function() {
+            $('.pause').hide();
+            $('.play').hide();
+            $('.logout').hide();
+            $('.connection-btn').show();
+        });
+    });
 
     /* Radio play */
     $('.play').click(function() {
         DZ.player.playTracks([3135563]);
         $( ".play" ).hide();
         $( ".pause" ).show();
-        /*DZ.login(function(response) {
-         if (response.authResponse) {
-         console.log('Welcome!  Fetching your information.... ');
-         DZ.api('/user/me', function(response) {
-         console.log('Good to see you, ' + response.name + '.');
-         });
-         } else {
-         console.log('User cancelled login or did not fully authorize.');
-         }
-         }, {perms: 'basic_access,email'});*/
     });
 
     /* Radio pause */
@@ -37,14 +55,12 @@ $(document).ready(function() {
     });
 
     /* Music Add */
-
     $('.butAdd').click(function(){
         $('.butAdd').hide();
         $('.search').show();
     });
 
     /* Switch theme */
-
     function appendStyleSheet() {
         $('head').append('<link rel="stylesheet" href="style/style2.css" id="hc_stylesheet">');
     }
@@ -72,5 +88,4 @@ $(document).ready(function() {
             $.cookie('high_contrast', 'false');
         }
     });
-
 });
