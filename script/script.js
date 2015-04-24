@@ -73,6 +73,7 @@ $(document).ready(function() {
     var loop = setInterval(function() {
         console.log('Refreshing ...');
         angular.element($('#playlist')).scope().onTracks();
+        angular.element($('.player')).scope().onCurrent();
     }, 10000);
 
     /* Switch theme */
@@ -140,7 +141,6 @@ function addTrack(event) {
 }
 
 function addVote(event) {
-    angular.element($('#playlist')).scope().onAddVote(event.target.attributes['track'].nodeValue);
-    angular.element($('#playlist')).scope().onTracks();
     $('.addVote').hide();
+    angular.element($('#playlist')).scope().onAddVote(event.target.attributes['track'].nodeValue);
 }
