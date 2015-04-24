@@ -42,7 +42,12 @@ $(document).ready(function() {
 
     /* Radio play */
     $('.play').click(function() {
-        DZ.player.playTracks([3135563]);
+        angular.element($('.player')).scope().onCurrent();
+        var track = angular.element($('.player')).scope().current;
+        DZ.player.playTracks([track.id]);
+        setTimeout(function() {
+            DZ.player.seek(parseInt(track.currentduration));
+        },1000);
         $( ".play" ).hide();
         $( ".pause" ).show();
     });
@@ -53,6 +58,22 @@ $(document).ready(function() {
         $( ".pause" ).hide();
         $( ".play" ).show();
     });
+
+    /* Switch track */
+    DZ.Event.subscribe('track_end', function(duration, evt_name){
+        angular.element($('.player')).scope().onCurrent();
+        setTimeout(function() {
+            var track = angular.element($('.player')).scope().current;
+            DZ.player.playTracks([track.id]);
+        },1000);
+        $('.addVote').show();
+    });
+
+    /* Refresh loop */
+    var loop = setInterval(function() {
+        console.log('Refreshing ...');
+        angular.element($('#playlist')).scope().onTracks();
+    }, 10000);
 
     /* Switch theme */
     function appendStyleSheet() {
@@ -84,34 +105,42 @@ $(document).ready(function() {
     });
 
     /* Search Deezer */
-
     $('.butAdd').click(function(){
         $('.butAdd').hide();
         $('.search').show();
     });
 
     $('.searchStart').click(function(){
-        $('table.playlist').hide();
+        angular.element($('.searchResults')).scope().onSearch($('#search').val());
+        $('table#playlist').hide();
         $('.searchStart').hide();
         $('table.searchResults').show();
         $('.searchReturn').show();
-    });  
+    });
 
     $('.searchReturn').click(function(){
         $('table.searchResults').hide();
         $('.searchReturn').hide();
-        $('table.playlist').show();
+        $('table#playlist').show();
         $('.searchStart').show();
         $('.search').hide();
         $('.butAdd').show();
-    });  
+    });
 
-    $('.addSong').click(function(){
-        $('table.searchResults').hide();
-        $('.searchReturn').hide();
-        $('table.playlist').show();
-        $('.searchStart').show();
-        $('.search').hide();
-        $('.butAdd').show();
-    });  
 });
+
+function addTrack(event) {
+    angular.element($('.searchResults')).scope().onAddTrack(event.target.attributes['track'].nodeValue);
+    $('table.searchResults').hide();
+    $('.searchReturn').hide();
+    $('table#playlist').show();
+    $('.searchStart').show();
+    $('.search').hide();
+    $('.butAdd').show();
+}
+
+function addVote(event) {
+    angular.element($('#playlist')).scope().onAddVote(event.target.attributes['track'].nodeValue);
+    angular.element($('#playlist')).scope().onTracks();
+    $('.addVote').hide();
+}

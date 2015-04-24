@@ -7,7 +7,7 @@
     <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
 </head>
-<body>
+<body ng-app="app">
 <div class="header">
     <section class="header">
         <h1 class="titre">Lecteur de Musique Collaboratif</h1>
@@ -21,21 +21,21 @@
     <p>Changer de style</p>
 </section>
 <section class="main wrapper">
-    <div class="player">
-        <img class="cover" src="images/test.jpg">
-        <p class="now">Now Playing: Daft Punk - Veridis Quo</p>
+    <div class="player" ng-controller="currentCtrl">
+        <img class="cover" src="{{ current.album.cover }}">
+        <p class="now">Now Playing: {{current.title}} - {{current.artist.name}}</p>
         <img id="play" class="play" src="images/play.png">
         <img id="pause" class="pause" src="images/pause.png">
         <p class="connection-btn">Connect to Deezer account</p>
         <p class ="add butAdd"><a href="#">Ajouter une chanson</a></p>
         <div class="add search">
-            <input type="search" class="search" placeholder="Entrez le titre de la chanson..." name="the_search">
+            <input id="search" type="search" class="search" placeholder="Entrez le titre de la chanson..." name="the_search">
             <button type="button" class="searchStart search">Rechercher</button>
             <button type="button" class="searchReturn search">Retour</button>
         </div>
     </div>
     <div class="playlist">
-        <table class="playlist" ng-app="app" ng-controller="tracksCtrl">
+        <table id="playlist" ng-controller="tracksCtrl">
             <tr>
                 <th>Titre</th>
                 <th>Artiste</th>
@@ -43,32 +43,26 @@
                 <th class="small">Vote</th>
             </tr>
 
-            <tr ng-repeat="track in tracks" id="{{ track.id }}">
+            <tr ng-repeat="track in tracks">
                 <td>{{track.title}}</td>
                 <td>{{track.artist.name}}</td>
                 <td>{{track.album.title}}</td>
-                <td class="small"><span>{{track.vote}}</span> <span class="addVote">+</span></td>
+                <td class="small"><span>{{track.vote}}</span> <span track="{{ track.id }}" class="addVote" onclick="addVote(event)">+</span></td>
             </tr>
         </table>
-        <table class="searchResults">
+        <table class="searchResults" ng-controller="searchCtrl">
             <tr>
                 <th>Titre</th>
                 <th>Artiste</th>
                 <th>Album</th>
                 <th class="small">Ajouter</th>
             </tr>
-            <tr>
-                <td>ligne</td>
-                <td>de</td>
-                <td>test</td>
-                <td class="small"><span class="addSong">Ajouter</span></td>
-            </tr>
 
-            <tr ng-repeat="track in tracks" id="{{ track.id }}">
+            <tr ng-repeat="track in search">
                 <td>{{track.title}}</td>
                 <td>{{track.artist.name}}</td>
                 <td>{{track.album.title}}</td>
-                <td class="small"><span class="addSong">Ajouter</span></td>
+                <td class="small"><span track="{{ track.id }}" class="addSong" onclick="addTrack(event)">Ajouter</span></td>
             </tr>
         </table>
     </div>
@@ -79,7 +73,7 @@
 <script type="text/javascript" src="script/cookie/jquery.cookie.js"></script>
 <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 <script src="http://cdns-files.deezer.com/js/min/dz.js"></script>
-<script src="script/script.js"></script>
 <script src="script/angular.js"></script>
+<script src="script/script.js"></script>
 </body>
 </html>

@@ -182,15 +182,16 @@ function change() {
 }
 
 function core() {
+    var timer = duration;
     time = 0;
     console.log(current);
     var interval = setInterval(function() {
-        if(time == duration) {
+        if(time == timer) {
             console.log('Timer fini');
             clearInterval(interval);
         }
         time++;
-        console.log(time);
+        console.log(time + '/' + timer);
     }, 1000);
     setTimeout(function() {
         console.log('Musique finie');
@@ -198,7 +199,7 @@ function core() {
         vote++;
         createVotes();
         setTimeout(core, 3000);
-    }, duration * 1000);
+    }, timer * 1000);
 }
 
 var server = app.listen(3000, function () {
